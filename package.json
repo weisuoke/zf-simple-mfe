@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "rollup -c",
-    "serve": "SERVE=true rollup -c -w"
+    "watch": "SERVE=true rollup -c -w"
   },
   "repository": {
     "type": "git",
