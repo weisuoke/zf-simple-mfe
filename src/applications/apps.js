@@ -1,4 +1,11 @@
-import { NOT_LOADED } from './apps.helper'
+import {
+  NOT_LOADED,
+  noSkip,
+  noLoadError,
+  isntLoaded,
+  shouldBeActivity
+} from './apps.helper'
+import { invoke } from '../navigations/invoke'
 
 const APPS = []
 
@@ -37,4 +44,11 @@ export function registerApplication(appName, loadFunction, activityWhen, customP
   })
 
   console.log(APPS)
+
+  return invoke()
+}
+
+
+export function getAppsToLoad() {
+  return APPS.filter(noSkip).filter(noLoadError).filter(isntLoaded).filter(shouldBeActivity);
 }
