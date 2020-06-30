@@ -33,3 +33,10 @@ export function flattenLifecyclesArray(lifecycle, description) {
     }
   })
 }
+
+export function getProps(app) {
+  return {
+    name: app.name,
+    ...app.customProps
+  }
+}

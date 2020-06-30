@@ -14,9 +14,19 @@
       let mySingleSpa = global.mySingleSpa;
       mySingleSpa.registerApplication(
         'appA',
-        () => Promise.resolve({}),
+        (props) => {
+          let app = {
+            bootstrap: [() => Promise.resolve()],
+            mount: [() => Promise.resolve()],
+            unmount: [() => Promise.resolve()]
+          }
+          return Promise.resolve(app)
+        },
         function(location) {
           return true
+        },
+        {
+          a: 'weisuoke'
         }
       )
     })(window)

@@ -1,8 +1,11 @@
 import {
-  NOT_LOADED,
-  noSkip,
-  noLoadError,
+  isActive,
+  isLoaded,
+  isntActive,
   isntLoaded,
+  noLoadError,
+  noSkip,
+  NOT_LOADED,
   shouldBeActivity
 } from './apps.helper'
 import { invoke } from '../navigations/invoke'
@@ -18,7 +21,7 @@ const APPS = []
  *
  * return Promise
  */
-export function registerApplication(appName, loadFunction, activityWhen, customProps) {
+export function registerApplication(appName, loadFunction, activityWhen, customProps = {}) {
   if (!appName || typeof appName !== 'string') {
     throw new Error('appName must be a non-empty string')
   }
@@ -48,7 +51,18 @@ export function registerApplication(appName, loadFunction, activityWhen, customP
   return invoke()
 }
 
-
 export function getAppsToLoad() {
-  return APPS.filter(noSkip).filter(noLoadError).filter(isntLoaded).filter(shouldBeActivity);
+  return APPS.filter(noSkip).filter(noLoadError).filter(isntLoaded).filter(shouldBeActivity)
+}
+
+export function getAppsToUnmount() {
+  return APPS.filter(noSkip).filter(isActive).filter(shouldntBeActivity)
+}
+
+export function getAppsToMount() {
+  // 没有中断
+  // 已经加载过的
+  // 没有被 mount 的
+  // 应该被 mount
+  return APPS.filter(noSkip).filter(isLoaded).filter(isntActive).filter(shouldBeActivity)
 }
